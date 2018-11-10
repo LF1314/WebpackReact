@@ -181,6 +181,55 @@ npm i extract-text-webpack-plugin@next -D
 
 ```
 
+webpack.config.js 配置项如下
+
+```javascript
+module:{
+         rules:
+         [
+        
+            {
+           test:'/\.less/',
+           use:ExtractTextWebpackPlugin.extract({
+               //将css以link标签的方式引入就不再需要，style-loader
+                fallback:'style-loader',
+                use:['css-loader','less-loader']
+           })
+            },
+           {
+            test:'/\.sass/',
+            use:ExtractTextWebpackPlugin.extract({
+                //将css以link标签的方式引入就不再需要，style-loader
+                    fallback:'style-loader',
+                    use:['css-loader','sass-loader']
+            })
+            },
+            {
+            test:'/\.less/',
+            use:ExtractTextWebpackPlugin.extract({
+                //将css以link标签的方式引入就不再需要，style-loader
+                    fallback:'style-loader',
+                    use:['css-loader']
+            })
+                }
+         ]
+
+
+
+    },//处理对应的模块
+    plugins:[
+        new HtmlWebpackPlugin({
+            template:'./src/index.html',
+            hash:true
+        })
+        ,
+        //把合并好的样式放到dist下的css下的style下
+        
+        new ExtractTextWebpackPlugin('css/style.css')
+                 
+    ]
+```
+
 
 
 
